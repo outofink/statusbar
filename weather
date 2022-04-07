@@ -1,0 +1,47 @@
+#!/bin/python
+
+import json
+import sys
+import time
+import urllib.request
+
+city = 'Jerusalem'
+api_key = '5f3fb3fd4ee29f67d147148e39514beb'
+
+url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={api_key}'
+
+try:
+    weather = json.loads(str(urllib.request.urlopen(url).read())[2:-1])
+except urllib.error.URLError:
+    sys.exit(0)
+
+main = weather['weather'][0]['main']
+description = weather['weather'][0]['description']
+
+sunrise = weather['sys']['sunrise']
+sunset = weather['sys']['sunset']
+
+day = sunrise < int(time.time()) < sunset
+icon = ''
+
+if main == 'Drizzle':
+    icon = ''
+elif main == 'Rain':
+    icon = ''
+elif main == 'Thunderstorm':
+    icon = 'ﭼ'
+elif main == 'Snow':
+    icon = ''
+elif main == 'Clouds':
+    icon = ' '
+elif main == 'Clear':
+    if day:
+        icon = '滛'
+    else:
+        icon = ''
+
+info = description.capitalize()
+temp = round(weather['main']['temp'] - 272.15)
+
+# print('%s %s, %i°C' % (icon, main, temp))
+print('%s %i°C' % (icon, temp))

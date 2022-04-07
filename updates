@@ -1,0 +1,6 @@
+#!/bin/sh
+
+NUM="$(checkupdates 2>/dev/null | wc -l)"
+if [ "$NUM" -gt 0 ]; then
+    echo " $NUM"
+fi

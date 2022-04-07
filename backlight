@@ -1,0 +1,17 @@
+#!/bin/sh
+
+bl=$(printf "%.0f" "$(xbacklight -get)")
+
+if [ "$bl" -gt 80 ]; then
+    icon=""
+elif [ "$bl" -gt 60 ]; then
+    icon=""
+elif [ "$bl" -gt 40 ]; then
+    icon=""
+elif [ "$bl" -gt 20 ]; then
+    icon=""
+else
+    icon=""
+fi
+
+echo "$icon $bl"

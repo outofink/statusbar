@@ -1,0 +1,9 @@
+#!/bin/sh
+
+wifi=$(nmcli device | grep wlan0 | awk -F ' connected' '{print $2}')
+
+if [ "$wifi" == "" ]; then
+    echo "睊"
+else
+    echo "直 $wifi" | xargs
+fi

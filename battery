@@ -1,0 +1,50 @@
+#!/bin/sh
+
+# Change BAT0 to whatever your battery is identified as. Typically BAT0 or BAT0
+CHARGE=$(cat /sys/class/power_supply/BAT0/capacity)
+STATUS=$(cat /sys/class/power_supply/BAT0/status)
+
+# if [ "$CHARGE" -ge 80 ]; then
+#    ST=" "
+# elif [ "$CHARGE" -ge 60 ]; then
+#    ST=" "
+# elif [ "$CHARGE" -ge 40 ]; then
+#    ST=" "
+# elif [ "$CHARGE" -ge 20 ]; then
+#    ST=" "
+# else
+#    ST=" "
+# fi
+
+if [ "$CHARGE" -ge 90 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 80 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 70 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 60 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 50 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 40 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 30 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 20 ]; then
+    ST=""
+elif [ "$CHARGE" -ge 10 ]; then
+    ST=""
+else
+    ST=""
+fi
+
+if [ "$STATUS" = "Charging" ]; then
+    ST=""
+fi
+
+if [ "$STATUS" = "Full" ]; then
+    echo ""
+    exit 0
+fi
+
+echo "$ST $CHARGE%"

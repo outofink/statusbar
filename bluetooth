@@ -1,0 +1,34 @@
+#!/bin/sh
+
+STATUS=""
+
+function battery_icon {
+    if [ "$1" -ge 80 ]; then
+        printf " "
+    elif [ "$1" -ge 60 ]; then
+        printf " "
+    elif [ "$1" -ge 40 ]; then
+        printf " "
+    elif [ "$1" -ge 20 ]; then
+        printf " "
+    else
+        printf " "
+    fi
+}
+
+POWERED_ON="$(bluetoothctl show | grep "Powered: yes")"
+
+if [ ! -z "$POWERED_ON" ]; then
+    printf ""
+
+    DEVICES="$(bluetoothctl devices | cut -d ' ' -f2)"
+    echo "$DEVICES" | while IFS= read -r line; do
+        CONNECTED="$(bluetoothctl info $line | grep "Connected: yes")"
+        if [ ! -z "$CONNECTED" ]; then
+            if   [ "$line" = "CC:98:8B:93:6E:EF" ]; then printf "  "
+            elif [ "$line" = "EC:68:1B:6C:21:ED" ]; then printf "  "; fi
+            battery_icon $(bluetoothctl info $line | grep "Battery Percentage" | awk -F"[()]" '{print $2}')
+        fi
+    done
+#    printf '\n'
+fi

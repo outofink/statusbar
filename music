@@ -1,0 +1,17 @@
+#!/bin/sh
+
+NAME="$(playerctl -i chromium -l 2> /dev/null| head -n 1)"
+
+if [ -z $NAME ]; then
+    exit 0
+fi
+
+ARTIST=$(playerctl -p $NAME metadata artist)
+TRACK=$(playerctl -p $NAME metadata title)
+STATUS=$(playerctl -p $NAME status)
+
+if [ "$STATUS" = "Playing" ]; then
+    echo " $TRACK - $ARTIST"
+elif [ "$STATUS" = "Paused" ]; then
+    echo " $TRACK - $ARTIST"
+fi

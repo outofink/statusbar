@@ -1,0 +1,5 @@
+#!/bin/sh
+
+MEM=$(free | awk '/Mem/ { print int($3*100 / $2) }')
+
+echo " $MEM%"

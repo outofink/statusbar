@@ -1,0 +1,5 @@
+#!/bin/sh
+
+CPU=$(mpstat 1 1 | awk '/Average/ { print 100 - int($12 + 0.5) }')
+
+echo " $CPU%"
