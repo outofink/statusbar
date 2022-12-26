@@ -30,5 +30,5 @@ if [ ! -z "$POWERED_ON" ]; then
             battery_icon $(bluetoothctl info $line | grep "Battery Percentage" | awk -F"[()]" '{print $2}')
         fi
     done
-#    printf '\n'
+    printf '\n'
 fi
