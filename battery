@@ -36,6 +36,9 @@ elif [ "$CHARGE" -ge 10 ]; then
     ST=""
 else
     ST=""
+    if [ "$STATUS" != "Charging" ]; then
+        notify-send -u critical -i /usr/share/icons/Papirus-Dark/48x48/status/battery-empty.svg  "Low Battery" "Battery low, connect charger" -r 9000
+    fi
 fi
 
 if [ "$STATUS" = "Charging" ]; then
