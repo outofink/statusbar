@@ -3,12 +3,17 @@
 import json
 import sys
 import time
+import os
 import urllib.request
+import urllib.error
+from dotenv import load_dotenv
+
+load_dotenv()
 
 city = 'Jerusalem'
-api_key = '5f3fb3fd4ee29f67d147148e39514beb'
+api_key = os.getenv("WEATHER_API_KEY")
 
-url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&APPID={api_key}'
+url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&appid={api_key}'
 
 try:
     weather = json.loads(str(urllib.request.urlopen(url).read())[2:-1])
@@ -27,7 +32,7 @@ icon = ''
 if main == 'Drizzle':
     icon = ''
 elif main == 'Rain':
-    icon = ''
+    icon = ' '
 elif main == 'Thunderstorm':
     icon = 'ﭼ'
 elif main == 'Snow':
@@ -43,5 +48,4 @@ elif main == 'Clear':
 info = description.capitalize()
 temp = round(weather['main']['temp'] - 272.15)
 
-# print('%s %s, %i°C' % (icon, main, temp))
 print('%s %i°C' % (icon, temp))
